@@ -18,5 +18,7 @@ games %>%
 games_split$away <- gsub(" ", "", games_split$away)
 games_split$home <- gsub(" ", "", games_split$home) 
 
+str_extract(games_split$away, "[0-9]")
+str_extract(games_split$away, "[A-z][A-z]*")
 
 
