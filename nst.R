@@ -7,6 +7,8 @@ library(tidyr)
 nst <- read.csv(file.choose(), header = TRUE,
                 stringsAsFactors = FALSE)
 
+nst$id <- rep(1:(nrow(nst) / 2), rep_len(c(2, 2), (nrow(nst) / 2)))
+
 nst %>%
   arrange(Team) %>%
   select(Game) -> games
