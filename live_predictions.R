@@ -19,7 +19,9 @@ schedule <- schedule_list[[1]]
 
 names(schedule)[c(3, 5, 6)] <- c("away_goals", "home_goals", "ot")
 
-date <- "2019-05-04"
+
+# Start here for multiple dates
+date <- "2019-05-05"
 
 schedule %>%
   filter(Date == date) -> today_games
@@ -33,6 +35,12 @@ games <- data.frame(date = today_games$Date,
                     away_team = today_games$Visitor,
                     away_score = 0,
                     stringsAsFactors = FALSE)
+
+games$home_team <- ifelse(games$home_team == "St. Louis Blues", "St Louis Blues",
+                          games$home_team)
+
+games$away_team <- ifelse(games$away_team == "St. Louis Blues", "St Louis Blues",
+                          games$away_team)
 
 games %>%
   left_join(teams_ref, by = c("home_team" = "team")) %>%
@@ -120,6 +128,8 @@ live_pool <- catboost.load_pool(X_predict, label = y_predict)
 
 
 live_preds <- catboost.predict(model, live_pool, prediction_type = "Probability")
+
+cbind(X_info, live_preds)
 
 
 write.csv(cbind(X_info, live_preds), paste0(date, "_predictions.csv"), row.names = FALSE)
