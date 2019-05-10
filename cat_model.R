@@ -5,9 +5,17 @@ library(caret)
 
 # load the data
 data_2019 <-read.csv("2019.csv", stringsAsFactors = FALSE, header = TRUE)
+playoffs_2019 <- read.csv("2019_playoffs.csv", stringsAsFactors = FALSE, header = TRUE)
+
+dim(data_2019)
+dim(playoffs_2019)
+
+all_2019 <- rbind(data_2019, playoffs_2019)
+
+
 data_2018 <-read.csv("2018.csv", stringsAsFactors = FALSE, header = TRUE)
 
-data <- rbind(data_2018, data_2019)
+data <- rbind(data_2018, all_2019)
 
 data %>%
   arrange(home_team)
@@ -60,7 +68,7 @@ train_pool <- catboost.load_pool(data = X_train, label = y_train)
 test_pool <- catboost.load_pool(data = X_valid, label = y_valid)
 
 # set model parameters - START WITH ITERATIONS AT 500
-params <- list(iterations=153,
+params <- list(iterations=300,
                learning_rate=0.01,
                depth=10,
                loss_function='Logloss',

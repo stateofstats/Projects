@@ -208,5 +208,5 @@ final_df <- final_df %>%
          home_win,
          everything())
 
-write.csv(final_df, "2019.csv", row.names = FALSE)
+write.csv(final_df, "2019_playoffs.csv", row.names = FALSE)
 

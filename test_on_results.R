@@ -4,12 +4,13 @@
 
 library(plyr)
 
+
 myfiles <- list.files(pattern = ".csv")
 
-dat_csv = ldply(myfiles, read.csv)
+nhl_preds <- ldply(myfiles, read.csv)
 
-dat_csv %>%
-  filter(date != "2019-05-04") -> nhl_preds 
+nhl_preds %>%
+  filter(date != "2019-05-09") -> nhl_preds
 
 schedule %>%
   filter(away_goals >= 0) -> nhl_results

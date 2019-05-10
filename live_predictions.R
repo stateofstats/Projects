@@ -21,7 +21,7 @@ names(schedule)[c(3, 5, 6)] <- c("away_goals", "home_goals", "ot")
 
 
 # Start here for multiple dates
-date <- "2019-05-05"
+date <- "2019-05-08"
 
 schedule %>%
   filter(Date == date) -> today_games
@@ -82,7 +82,7 @@ mr_ids <- data.frame(team = c(games$home_team, games$away_team),
                      id = c(home_ids, away_ids))
 
 mr_ids %>%
-  left_join(cumstats %>% select(-date), by = c("team", "id")) -> games_stats
+  left_join(curstats %>% select(-date), by = c("team", "id")) -> games_stats
 
 games %>%
   left_join(games_stats %>% select(-c(id,
