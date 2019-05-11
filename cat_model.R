@@ -4,11 +4,11 @@ library(catboost)
 library(caret)
 
 # load the data
-data_2019 <-read.csv("2019_playoffs.csv", stringsAsFactors = FALSE, header = TRUE)
+data_2019 <-read.csv("2019_clean.csv", stringsAsFactors = FALSE, header = TRUE)
 
-data_2018 <-read.csv("2018.csv", stringsAsFactors = FALSE, header = TRUE)
+data_2018 <-read.csv("2018_clean.csv", stringsAsFactors = FALSE, header = TRUE)
 
-data <- rbind(data_2018, all_2019)
+data <- rbind(data_2018, data_2019)
 
 data %>%
   arrange(home_team)
@@ -70,7 +70,8 @@ params <- list(iterations=300,
                od_type='Iter',
                metric_period = 50,
                od_wait=20,
-               use_best_model=TRUE)
+               use_best_model=TRUE,
+               task_type = 'GPU')
 
 # train the model
 model <- catboost.train(learn_pool = train_pool, test_pool = test_pool, params = params)

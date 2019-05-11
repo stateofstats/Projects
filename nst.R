@@ -4,8 +4,24 @@ library(dplyr)
 library(stringr)
 library(tidyr)
 
-nst <- read.csv(file.choose(), header = TRUE,
+reg_2018 <- read.csv(file.choose(), header = TRUE,
                 stringsAsFactors = FALSE)
+
+po_2018 <- read.csv(file.choose(), header = TRUE,
+                     stringsAsFactors = FALSE)
+
+reg_2019 <- read.csv(file.choose(), header = TRUE,
+                     stringsAsFactors = FALSE)
+
+po_2019 <- read.csv(file.choose(), header = TRUE,
+                     stringsAsFactors = FALSE)
+
+all_2018 <- rbind(reg_2018, po_2018)
+all_2019 <- rbind(reg_2019, po_2019)
+
+########################
+
+nst <- all_2019
 
 nst$id <- rep(1:(nrow(nst) / 2), rep_len(c(2, 2), (nrow(nst) / 2)))
 
@@ -208,5 +224,5 @@ final_df <- final_df %>%
          home_win,
          everything())
 
-write.csv(final_df, "2019_playoffs.csv", row.names = FALSE)
+write.csv(final_df, "2019_clean.csv", row.names = FALSE)
 

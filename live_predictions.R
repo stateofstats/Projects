@@ -21,10 +21,10 @@ names(schedule)[c(3, 5, 6)] <- c("away_goals", "home_goals", "ot")
 
 
 # Start here for multiple dates
-date <- "2019-05-08"
+date <- "2019-05-09"
 
 schedule %>%
-  filter(Date == date) -> today_games
+  filter(Date <= date) -> today_games
 
 tmp_ids <- seq(from = 1111111, to = 9999999, by = 101010)
 
@@ -106,7 +106,8 @@ home_live_stats %>%
               select(-c(date,
                         home_team, home_score,
                         away_team, away_score)), by = "id") %>%
-  arrange(id) -> live_for_model
+  arrange(id) %>%
+  unique() -> live_for_model
 
 live_for_model$home_win <- ifelse(live_for_model$home_score > live_for_model$away_score, 1, 0)
 
