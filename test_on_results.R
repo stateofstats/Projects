@@ -4,13 +4,21 @@
 
 library(plyr)
 
+#multiple files
 
 myfiles <- list.files(pattern = ".csv")
 
 nhl_preds <- ldply(myfiles, read.csv)
 
-nhl_preds %>%
-  filter(date != "2019-05-09") -> nhl_preds
+# single file
+nhl_preds <- read.csv("2019-05-11current_predictions.csv", header = TRUE, stringsAsFactors = FALSE)
+
+
+
+
+# nhl_preds %>%
+#   filter(date != "2019-05-09") -> nhl_preds
+
 
 schedule %>%
   filter(away_goals >= 0) -> nhl_results
@@ -28,6 +36,10 @@ logLoss <- function(pred, actual) {
 }
 
 logLoss(comb$live_preds, comb$home_win_act)
+
+library(MLmetrics)
+
+LogLoss(comb$live_preds, comb$home_win_act)
 
 comb %>% 
   arrange(live_preds) %>%

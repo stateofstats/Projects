@@ -2,6 +2,7 @@
 library(dplyr)
 library(httr)
 library(rvest)
+library(catboost)
 
 curstats <- read.csv("2019_team_stats.csv", stringsAsFactors = FALSE, header = TRUE)
 
@@ -21,18 +22,18 @@ names(schedule)[c(3, 5, 6)] <- c("away_goals", "home_goals", "ot")
 
 
 # Start here for multiple dates
-date <- "2019-05-09"
+date <- "2019-05-11"
 
 schedule %>%
-  filter(Date <= date) -> today_games
+  filter(Date == date) -> test_games
 
 tmp_ids <- seq(from = 1111111, to = 9999999, by = 101010)
 
-games <- data.frame(date = today_games$Date,
-                    id = tmp_ids[1:nrow(today_games)],
-                    home_team = today_games$Home,
+games <- data.frame(date = test_games$Date,
+                    id = tmp_ids[1:nrow(test_games)],
+                    home_team = test_games$Home,
                     home_score = 0,
-                    away_team = today_games$Visitor,
+                    away_team = test_games$Visitor,
                     away_score = 0,
                     stringsAsFactors = FALSE)
 
@@ -133,6 +134,6 @@ live_preds <- catboost.predict(model, live_pool, prediction_type = "Probability"
 cbind(X_info, live_preds)
 
 
-write.csv(cbind(X_info, live_preds), paste0(date, "_predictions.csv"), row.names = FALSE)
+write.csv(cbind(X_info, live_preds), paste0(date, "current_predictions.csv"), row.names = FALSE)
 
 
