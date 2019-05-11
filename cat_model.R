@@ -4,14 +4,7 @@ library(catboost)
 library(caret)
 
 # load the data
-data_2019 <-read.csv("2019.csv", stringsAsFactors = FALSE, header = TRUE)
-playoffs_2019 <- read.csv("2019_playoffs.csv", stringsAsFactors = FALSE, header = TRUE)
-
-dim(data_2019)
-dim(playoffs_2019)
-
-all_2019 <- rbind(data_2019, playoffs_2019)
-
+data_2019 <-read.csv("2019_playoffs.csv", stringsAsFactors = FALSE, header = TRUE)
 
 data_2018 <-read.csv("2018.csv", stringsAsFactors = FALSE, header = TRUE)
 
@@ -110,14 +103,6 @@ logLoss <- function(pred, actual) {
 }
 
 logLoss(y_pred, y_valid)
-
-#  
-
-
-###### validation = test ######
-
-
-
 
 
 
