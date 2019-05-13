@@ -174,7 +174,7 @@ df_split %>%
          home_team, home_score) -> cumstats
 
 # write the stats csv before manipulating the data
-write.csv(cumstats, "2019_team_stats", row.names = FALSE)
+write.csv(cumstats, "2019_team_stats.csv", row.names = FALSE)
 
 cumstats %>%
   group_by(id) %>%

@@ -137,11 +137,11 @@ east <- sched_w_preds %>%
   filter(home_team == "Bruins" | away_team == "Bruins")
 
 west <- sched_w_preds %>%
-  filter(home_team == "Blues" | away_team == "Blues")
+  filter(home_team == "Sharks" | away_team == "Sharks")
 
 east$bruins_win_prob <- ifelse(east$home_team == "Bruins", east$live_preds, 1 - as.numeric(east$live_preds))
 
-west$blues_win_prob <- ifelse(west$home_team == "Blues", west$live_preds, 1 - as.numeric(west$live_preds))
+west$sharks_win_prob <- ifelse(west$home_team == "Sharks", west$live_preds, 1 - as.numeric(west$live_preds))
 
 east %>%
   mutate(bruins_win = bruins_win_prob,
@@ -149,11 +149,14 @@ east %>%
   select(date, home_team, away_team, bruins_win, loss) -> east_probs
 
 west %>%
-  mutate(blues_win = blues_win_prob,
-         loss = 1 - blues_win_prob) %>%
-  select(date, home_team, away_team, blues_win, loss) -> west_probs
+  mutate(sharks_win = sharks_win_prob,
+         loss = 1 - sharks_win_prob) %>%
+  select(date, home_team, away_team, sharks_win, loss) -> west_probs
 
 east_probs[1, 4:5] <- c(1, 0)
+east_probs[2, 4:5] <- c(1, 0)
+
+west_probs[1, 4:5] <- c(1, 0)
 
 
 print("Bruins")
@@ -161,7 +164,7 @@ series_win_prob(east_probs %>%
                   select(bruins_win, loss))
 print("Blues")
 series_win_prob(west_probs %>%
-                  select(blues_win, loss))
+                  select(sharks_win, loss))
 
 
 
