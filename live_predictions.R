@@ -22,7 +22,7 @@ names(schedule)[c(3, 5, 6)] <- c("away_goals", "home_goals", "ot")
 
 
 # Start here for multiple dates
-date <- "2019-05-13"
+date <- "2019-05-14"
 
 schedule %>%
   filter(Date == date) -> test_games
